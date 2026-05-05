@@ -72,12 +72,12 @@ Output: `publish\VaultApp.exe` — single standalone executable, no installer ne
 - Custom borderless chrome on all windows
 - Animated splash screen
 - Sidebar with category counts
-- Dark, minimal design — warm purple accent
+- Dark, minimal design - warm purple accent
 
 ### Data
 - Import from CSV (Bitwarden and LastPass format auto-detected)
 - Export to unencrypted JSON (with warning)
-- Clear All Data — triple confirmation + PIN required
+- Clear All Data - triple confirmation + PIN required
 
 ---
 
