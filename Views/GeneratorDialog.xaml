@@ -1,0 +1,103 @@
+<local:ChromeWindow x:Class="VaultApp.Views.GeneratorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:VaultApp.Views"
+        Width="440" Height="530"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="#080810"
+        ShowInTaskbar="False">
+
+    <Border Background="#080810" BorderBrush="#1E1E32" BorderThickness="1" CornerRadius="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="42"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Title bar -->
+            <Border Grid.Row="0" CornerRadius="10,10,0,0" MouseLeftButtonDown="TitleBar_MouseDown">
+                <Grid Margin="20,0,0,0">
+                    <TextBlock Text="Password Generator" FontSize="13" FontWeight="Medium"
+                               Foreground="#9A9088" VerticalAlignment="Center"/>
+                    <Button HorizontalAlignment="Right" Style="{StaticResource ChromeCloseButton}"
+                            Content="&#xE8BB;" Click="CloseButton_Click"/>
+                </Grid>
+            </Border>
+
+            <!-- Body -->
+            <Border Grid.Row="1" BorderBrush="#13131F" BorderThickness="0,1,0,0">
+                <StackPanel Margin="24,20,24,24">
+
+                    <!-- Output -->
+                    <Border Background="#0E0E1A" BorderBrush="#1E1E1E" BorderThickness="1"
+                            CornerRadius="8" Padding="14,12" Margin="0,0,0,10">
+                        <Grid>
+                            <TextBlock x:Name="OutputText" FontFamily="Consolas" FontSize="13"
+                                       Foreground="#F0EDE8" TextWrapping="Wrap"
+                                       VerticalAlignment="Center" MinHeight="38"/>
+                            <Button HorizontalAlignment="Right" VerticalAlignment="Top"
+                                    Style="{StaticResource SecondaryButton}"
+                                    Content="Copy" FontSize="11" Padding="10,4,10,4"
+                                    Click="CopyOutput_Click"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Strength -->
+                    <StackPanel Margin="0,0,0,16">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                            <Border x:Name="S1" Height="3" Width="60" CornerRadius="2" Background="#1E1E1E" Margin="0,0,3,0"/>
+                            <Border x:Name="S2" Height="3" Width="60" CornerRadius="2" Background="#1E1E1E" Margin="0,0,3,0"/>
+                            <Border x:Name="S3" Height="3" Width="60" CornerRadius="2" Background="#1E1E1E" Margin="0,0,3,0"/>
+                            <Border x:Name="S4" Height="3" Width="60" CornerRadius="2" Background="#1E1E1E" Margin="0,0,3,0"/>
+                            <Border x:Name="S5" Height="3" Width="60" CornerRadius="2" Background="#1E1E1E"/>
+                        </StackPanel>
+                        <TextBlock x:Name="StrLabel" FontSize="11" Foreground="#585450" Margin="0,4,0,0"/>
+                    </StackPanel>
+
+                    <!-- Passphrase toggle -->
+                    <CheckBox x:Name="PassphraseMode" Content="Passphrase mode (word-based)"
+                              Margin="0,0,0,16" Checked="Rebuild" Unchecked="Rebuild"/>
+
+                    <!-- Length -->
+                    <StackPanel x:Name="PwOpts">
+                        <Grid Margin="0,0,0,8">
+                            <TextBlock Text="Length" Foreground="#7A7672" FontSize="12" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="LenVal" HorizontalAlignment="Right"
+                                       Foreground="#C8A96E" FontFamily="Segoe UI" FontSize="12" VerticalAlignment="Center"/>
+                        </Grid>
+                        <Slider x:Name="LenSlider" Minimum="8" Maximum="64" Value="20"
+                                ValueChanged="Slider_Changed" IsSnapToTickEnabled="True"
+                                TickFrequency="1" Margin="0,0,0,16"/>
+
+                        <UniformGrid Columns="2" Margin="0,0,0,0">
+                            <CheckBox x:Name="UseUpper"  Content="Uppercase  A-Z"  IsChecked="True"  Checked="Rebuild" Unchecked="Rebuild" Margin="0,0,0,10"/>
+                            <CheckBox x:Name="UseLower"  Content="Lowercase  a-z"  IsChecked="True"  Checked="Rebuild" Unchecked="Rebuild" Margin="0,0,0,10"/>
+                            <CheckBox x:Name="UseDigits" Content="Numbers  0-9"    IsChecked="True"  Checked="Rebuild" Unchecked="Rebuild" Margin="0,0,0,10"/>
+                            <CheckBox x:Name="UseSymbols" Content="Symbols  !@#..."  IsChecked="True"  Checked="Rebuild" Unchecked="Rebuild" Margin="0,0,0,10"/>
+                            <CheckBox x:Name="NoAmbig"   Content="Avoid ambiguous" IsChecked="False" Checked="Rebuild" Unchecked="Rebuild"/>
+                        </UniformGrid>
+                    </StackPanel>
+
+                    <!-- Footer buttons -->
+                    <Grid Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Style="{StaticResource SecondaryButton}"
+                                Content="Regenerate" Padding="0,10,0,10" Click="Regenerate_Click"/>
+                        <Button Grid.Column="2" Style="{StaticResource SecondaryButton}"
+                                Content="Copy" Padding="0,10,0,10" Click="CopyOutput_Click"/>
+                        <Button Grid.Column="4" Style="{StaticResource PrimaryButton}"
+                                Content="Use" Padding="0,10,0,10" Click="Use_Click"/>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
+</local:ChromeWindow>

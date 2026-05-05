@@ -1,0 +1,230 @@
+<local:ChromeWindow x:Class="VaultApp.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:VaultApp.Views"
+        Title="Keynest" Height="720" Width="1140" MinWidth="900" MinHeight="560"
+        WindowStartupLocation="CenterScreen"
+        Background="#080810"
+        KeyDown="Window_KeyDown">
+
+    <Border Background="#080810" BorderBrush="#1E1E32" BorderThickness="1" CornerRadius="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="42"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- ══ TITLE BAR ════════════════════════════════════════════════════ -->
+            <Border Grid.Row="0" Background="#080810" CornerRadius="10,10,0,0"
+                    MouseLeftButtonDown="TitleBar_MouseDown">
+                <Grid Margin="16,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Wordmark -->
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="KEYNEST" FontFamily="Segoe UI Light" FontSize="16"
+                                   Foreground="#F0EDE8" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                        <Border Width="1" Height="14" Background="#242424" Margin="0,0,14,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Search bar -->
+                    <Border Grid.Column="1" Background="#0E0E1A" BorderBrush="#1E1E32"
+                            BorderThickness="1" CornerRadius="6"
+                            MaxWidth="440" HorizontalAlignment="Left"
+                            Margin="0,6,0,6">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="S" FontFamily="Segoe MDL2 Assets"
+                                       FontSize="11" Foreground="#4A4468"
+                                       VerticalAlignment="Center" Margin="10,0,6,0"/>
+                            <Grid Grid.Column="1">
+                                <TextBlock x:Name="SearchPlaceholder" Text="Search entries...     Ctrl+F"
+                                           Foreground="#3A3458" FontSize="12"
+                                           VerticalAlignment="Center" Margin="2,0,0,0"
+                                           IsHitTestVisible="False"/>
+                                <TextBox x:Name="SearchBox" Background="Transparent" BorderThickness="0"
+                                         Foreground="#F0EDE8" CaretBrush="#C8A96E"
+                                         FontSize="12" Padding="2,0,10,0" VerticalAlignment="Center"
+                                         TextChanged="SearchBox_TextChanged"
+                                         GotFocus="SearchBox_GotFocus"
+                                         LostFocus="SearchBox_LostFocus"/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                    <!-- Right actions -->
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock x:Name="CountLabel" Foreground="#3A3458" FontFamily="Segoe UI"
+                                   FontSize="11" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                        <Button Style="{StaticResource IconButton}" ToolTip="Password Generator"
+                                Click="Generator_Click" Margin="0,0,2,0" Width="30" Height="30">
+                            <Path Data="M12,2 L12,6 M12,18 L12,22 M4.93,4.93 L7.76,7.76 M16.24,16.24 L19.07,19.07 M2,12 L6,12 M18,12 L22,12 M4.93,19.07 L7.76,16.24 M16.24,7.76 L19.07,4.93"
+                                  Stroke="#585450" StrokeThickness="1.5" StrokeStartLineCap="Round"
+                                  StrokeEndLineCap="Round" Width="14" Height="14" Stretch="Uniform"/>
+                        </Button>
+                        <Button Style="{StaticResource IconButton}" ToolTip="Settings"
+                                Click="Settings_Click" Margin="0,0,2,0" Width="30" Height="30">
+                            <Path Data="M12,8 A4,4 0 1 0 12,16 A4,4 0 1 0 12,8 M12,2 L12,4 M12,20 L12,22 M4.22,4.22 L5.64,5.64 M18.36,18.36 L19.78,19.78 M2,12 L4,12 M20,12 L22,12 M4.22,19.78 L5.64,18.36 M18.36,5.64 L19.78,4.22"
+                                  Stroke="#585450" StrokeThickness="1.5" StrokeStartLineCap="Round"
+                                  StrokeEndLineCap="Round" Width="14" Height="14" Stretch="Uniform"/>
+                        </Button>
+                        <Button Style="{StaticResource IconButton}" ToolTip="Add Entry  Ctrl+N"
+                                Click="Add_Click" Margin="0,0,4,0" Width="30" Height="30"
+                                Background="#1A7B5CF0">
+                            <TextBlock Text="+" FontSize="18" Foreground="#7B5CF0" Margin="0,-1,0,0"/>
+                        </Button>
+                        <Button Style="{StaticResource IconButton}" ToolTip="Lock Vault  Ctrl+L"
+                                Click="Lock_Click" Width="30" Height="30" Foreground="#4A4468">
+                            <Path Data="M6,10 L6,7 Q6,2 12,2 Q18,2 18,7 L18,10 M4,10 L20,10 L20,22 L4,22 Z M12,14 L12,18"
+                                  Stroke="#585450" StrokeThickness="1.5" Fill="Transparent"
+                                  StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                                  Width="13" Height="13" Stretch="Uniform"/>
+                        </Button>
+                        <Border Width="1" Height="14" Background="#242424" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                        <Button Style="{StaticResource ChromeButton}" Content="&#xE921;"
+                                Click="MinimizeButton_Click" ToolTip="Minimise"/>
+                        <Button Style="{StaticResource ChromeButton}" Content="&#xE922;"
+                                Click="MaximizeButton_Click" ToolTip="Maximise"/>
+                        <Button Style="{StaticResource ChromeCloseButton}" Content="&#xE8BB;"
+                                Click="CloseButton_Click" ToolTip="Close"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- ══ MAIN BODY ═════════════════════════════════════════════════════ -->
+            <Border Grid.Row="1" BorderBrush="#1E1E1E" BorderThickness="0,1,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="196"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- SIDEBAR -->
+                    <Border Grid.Column="0" Background="#080810" BorderBrush="#13131F" BorderThickness="0,0,1,0">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel x:Name="Sidebar" Margin="8,12,8,12"/>
+                        </ScrollViewer>
+                    </Border>
+
+                    <!-- ENTRY LIST -->
+                    <Grid Grid.Column="1" Background="#080810">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" BorderBrush="#13131F" BorderThickness="0,0,0,1" Padding="18,0">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock x:Name="ViewTitle" Text="All Items" FontSize="15"
+                                               FontWeight="SemiBold" Foreground="#F0EDE8"/>
+                                    <TextBlock x:Name="ViewCount" Foreground="#3A3458"
+                                               FontFamily="Segoe UI" FontSize="11" Margin="0,1,0,0"/>
+                                </StackPanel>
+                                <Button HorizontalAlignment="Right" VerticalAlignment="Center"
+                                        Style="{StaticResource IconButton}" Click="Sort_Click"
+                                        x:Name="SortBtn" ToolTip="Toggle sort" Width="28" Height="28">
+                                    <Path Data="M3,6 L10,6 M3,12 L16,12 M3,18 L21,18"
+                                          Stroke="#585450" StrokeThickness="1.5"
+                                          StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                                          Width="12" Height="10" Stretch="Uniform"/>
+                                </Button>
+                            </Grid>
+                        </Border>
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                            <StackPanel x:Name="EntryList" Margin="12,10,12,12"/>
+                        </ScrollViewer>
+                    </Grid>
+
+                    <!-- DETAIL PANEL -->
+                    <Border Grid.Column="2" x:Name="DetailPanel"
+                            Background="#080810" BorderBrush="#13131F" BorderThickness="1,0,0,0"
+                            Visibility="Collapsed" Width="320">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" Padding="16,14" BorderBrush="#13131F" BorderThickness="0,0,0,1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" x:Name="DetailAvatar"
+                                            Width="42" Height="42" CornerRadius="8"
+                                            Background="#171717" BorderBrush="#1E1E32" BorderThickness="1"
+                                            Margin="0,0,12,0">
+                                        <TextBlock x:Name="DetailIcon" FontSize="17" FontWeight="SemiBold"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock x:Name="DetailName" FontSize="14" FontWeight="SemiBold"
+                                                   Foreground="#F0EDE8" TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock x:Name="DetailUrl" FontSize="11" FontFamily="Segoe UI"
+                                                   Foreground="#7B5CF0" TextTrimming="CharacterEllipsis"
+                                                   Cursor="Hand" Margin="0,2,0,0"
+                                                   MouseLeftButtonUp="DetailUrl_Click"/>
+                                    </StackPanel>
+                                    <Button Grid.Column="2" Style="{StaticResource IconButton}"
+                                            Width="26" Height="26" VerticalAlignment="Top"
+                                            Click="CloseDetail_Click">
+                                        <Path Data="M4,4 L12,12 M12,4 L4,12" Stroke="#585450"
+                                              StrokeThickness="1.5" Width="8" Height="8" Stretch="Uniform"/>
+                                    </Button>
+                                </Grid>
+                            </Border>
+
+                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                <StackPanel x:Name="DetailBody" Margin="16,14"/>
+                            </ScrollViewer>
+
+                            <Border Grid.Row="2" Padding="12,10" BorderBrush="#13131F" BorderThickness="0,1,0,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="6"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="6"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0" Content="Edit" Click="EditEntry_Click"
+                                            Foreground="#7B5CF0" Background="#1A7B5CF0" BorderBrush="#3A7B5CF0"
+                                            BorderThickness="1" Padding="0,9,0,9" Cursor="Hand"
+                                            FontFamily="Segoe UI" FontSize="12">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border x:Name="bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="#25C8A96E"/></Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                    <Button Grid.Column="2" x:Name="StarBtn" Content="Favourite"
+                                            Style="{StaticResource SecondaryButton}"
+                                            Padding="0,9,0,9" FontSize="12" Click="StarEntry_Click"/>
+                                    <Button Grid.Column="4" Content="Delete" Click="DeleteEntry_Click"
+                                            Style="{StaticResource DangerButton}"
+                                            Padding="0,9,0,9" FontSize="12"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</local:ChromeWindow>

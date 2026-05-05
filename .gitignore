@@ -1,0 +1,17 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.exe
+*.dll
+*.pdb
+
+# Vault data (VERY IMPORTANT)
+*.vault
+*.meta
+*.dat
+
+# OS junk
+Thumbs.db
+.DS_Store
