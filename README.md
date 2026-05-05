@@ -98,7 +98,7 @@ Output: `publish\VaultApp.exe` — single standalone executable, no installer ne
 
 **Not protected against:** keyloggers or malware with your user privileges,
 screen capture while unlocked, physical observation of PIN entry,
-RAM scraping (keys are in memory while unlocked — unavoidable for any password manager).
+RAM scraping (keys are in memory while unlocked - unavoidable for any password manager).
 
 ---
 
