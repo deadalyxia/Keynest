@@ -1,4 +1,4 @@
-# VAULT — Personal Password Manager
+# Keynest — Personal Password Manager
 
 Secure, offline-first, open-source password manager for Windows.
 **No cloud. No telemetry. No accounts.**
@@ -17,10 +17,11 @@ Secure, offline-first, open-source password manager for Windows.
 | Clipboard         | Auto-clears after configurable timeout              |
 | Auto-lock         | Configurable inactivity timer                       |
 
-### Files (in %APPDATA%\VaultApp\)
+### Files (in %APPDATA%\VaultApp\) - Forgot to rename internally
 ```
 vault.vault   — AES-256-GCM encrypted payload (all entries)
 vault.meta    — Plaintext JSON: Argon2 salt, HMAC, recovery token, version
+
 ```
 
 `vault.meta` contains **no passwords** — only salts, HMAC signatures, and
@@ -41,8 +42,8 @@ Output: `publish\VaultApp.exe` — single standalone executable, no installer ne
 
 ## First Run
 
-1. Launch `VaultApp.exe`
-2. Choose a master PIN (4–20+ chars, any characters)
+1. Launch `Keynest.exe`
+2. Choose a master password (4–20+ chars, any characters)
 3. **Save your recovery key** — shown once, stored nowhere
 4. Your encrypted vault is created
 
@@ -71,7 +72,7 @@ Output: `publish\VaultApp.exe` — single standalone executable, no installer ne
 - Custom borderless chrome on all windows
 - Animated splash screen
 - Sidebar with category counts
-- Dark, minimal design — warm amber accent
+- Dark, minimal design — warm purple accent
 
 ### Data
 - Import from CSV (Bitwarden and LastPass format auto-detected)
@@ -112,7 +113,7 @@ VaultApp/
 ├── Views/
 │   ├── ChromeWindow.cs           Custom borderless chrome base class
 │   ├── SplashWindow              Animated loading screen
-│   ├── LockWindow                PIN setup (with recovery key), unlock, recovery reset
+│   ├── LockWindow                Password setup (with recovery key), unlock, recovery reset
 │   ├── MainWindow                Vault UI — sidebar, entry list, detail panel
 │   ├── EntryDialog               Add / edit entries
 │   ├── GeneratorDialog           Password generator
